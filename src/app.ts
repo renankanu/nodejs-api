@@ -1,6 +1,5 @@
 import fastify from 'fastify'
 import fastifyCookie from '@fastify/cookie'
-import { usersRoutes } from './modules/user/user.route'
 import { Prisma } from '@prisma/client'
 
 export const app = fastify({
@@ -8,7 +7,6 @@ export const app = fastify({
 })
 
 app.setErrorHandler((error, request, reply) => {
-  console.log('error', error)
   if (error instanceof fastify.errorCodes.FST_ERR_BAD_STATUS_CODE) {
     reply.status(500).send({ ok: false })
     return
@@ -26,4 +24,3 @@ app.setErrorHandler((error, request, reply) => {
 })
 
 app.register(fastifyCookie)
-app.register(usersRoutes)
