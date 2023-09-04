@@ -1,4 +1,5 @@
 import { UserRepository } from '../../repositories/users/users-repository'
+import { ResourceNotFoundError } from '../../shared/errors/resource-not-found'
 
 export class GetUserInfoUseCase {
   constructor(private usersRepository: UserRepository) {
@@ -8,7 +9,7 @@ export class GetUserInfoUseCase {
   async execute(userId: string) {
     const user = await this.usersRepository.findById(userId)
     if (!user) {
-      throw new Error('User not found')
+      throw new ResourceNotFoundError('User')
     }
     return user
   }
