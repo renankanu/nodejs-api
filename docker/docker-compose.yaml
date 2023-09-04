@@ -12,7 +12,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: database
-      MYSQL_USER: root
       TZ: America/Sao_Paulo
 
   adminer:
