@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify'
-import { profile } from './profile'
+import { info } from './info'
+import { register } from './register'
 
 export async function userRoutes(app: FastifyInstance) {
-  app.get('/users/profile', profile)
+  app.get('/users/info', info)
+  app.post('/users/register', register)
 }

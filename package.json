@@ -20,6 +20,7 @@
     "@fastify/cookie": "^9.0.4",
     "@fastify/jwt": "^7.2.1",
     "@rocketseat/eslint-config": "^2.1.0",
+    "@types/bcryptjs": "^2.4.3",
     "@types/node": "^20.5.9",
     "prisma": "^5.2.0",
     "tsx": "^3.12.8",
@@ -28,9 +29,11 @@
   "dependencies": {
     "@prisma/client": "^5.2.0",
     "audit": "^0.0.6",
+    "bcryptjs": "^2.4.3",
     "fastify": "^4.22.2",
     "fix": "^0.0.6",
     "npm": "^10.0.0",
-    "tsup": "^7.2.0"
+    "tsup": "^7.2.0",
+    "zod": "^3.22.2"
   }
 }
