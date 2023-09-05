@@ -2,6 +2,7 @@ import fastify from 'fastify'
 import fastifyCookie from '@fastify/cookie'
 import { Prisma } from '@prisma/client'
 import { userRoutes } from './interface/controllers/users/routes'
+import { healthRoutes } from './interface/controllers/health/route'
 
 export const app = fastify({
   logger: true,
@@ -24,5 +25,6 @@ app.setErrorHandler((error, request, reply) => {
   reply.send(error)
 })
 
+app.register(healthRoutes)
 app.register(fastifyCookie)
 app.register(userRoutes)
