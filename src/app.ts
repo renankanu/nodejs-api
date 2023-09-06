@@ -3,12 +3,18 @@ import fastifyCookie from '@fastify/cookie'
 import { Prisma } from '@prisma/client'
 import { userRoutes } from './interface/controllers/users/routes'
 import { healthRoutes } from './interface/controllers/health/route'
+import { ZodError } from 'zod'
 
 export const app = fastify({
   logger: true,
 })
 
-app.setErrorHandler((error, request, reply) => {
+app.setErrorHandler((error, _, reply) => {
+  if (error instanceof ZodError) {
+    return reply
+      .status(400)
+      .send({ message: 'Validation error.', stackTrace: error.format() })
+  }
   if (error instanceof fastify.errorCodes.FST_ERR_BAD_STATUS_CODE) {
     reply.status(500).send({ ok: false })
     return
