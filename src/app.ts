@@ -5,14 +5,10 @@ import { userRoutes } from './interface/controllers/users/routes'
 import { healthRoutes } from './interface/controllers/health/route'
 import { ZodError } from 'zod'
 import fastifyJwt from '@fastify/jwt'
-import { env } from 'process'
+import { env } from '@/env'
 
 export const app = fastify({
   logger: true,
-})
-
-app.register(fastifyJwt, {
-  secret: env.JWT_SECRET,
 })
 
 app.setErrorHandler((error, _, reply) => {
@@ -35,6 +31,21 @@ app.setErrorHandler((error, _, reply) => {
     return
   }
   reply.send(error)
+})
+
+app.register(fastifyJwt, {
+  secret: {
+    private: env.JWT_SECRET,
+    public: env.JWT_SECRET,
+  },
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    algorithm: 'HS256',
+    expiresIn: '10m',
+  },
 })
 
 app.register(healthRoutes)
