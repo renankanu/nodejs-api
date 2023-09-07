@@ -4,9 +4,15 @@ import { Prisma } from '@prisma/client'
 import { userRoutes } from './interface/controllers/users/routes'
 import { healthRoutes } from './interface/controllers/health/route'
 import { ZodError } from 'zod'
+import fastifyJwt from '@fastify/jwt'
+import { env } from 'process'
 
 export const app = fastify({
   logger: true,
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
 })
 
 app.setErrorHandler((error, _, reply) => {
