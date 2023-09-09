@@ -33,19 +33,12 @@ app.setErrorHandler((error, _, reply) => {
   return reply.status(500).send(responseBody)
 })
 
-app.register(fastifyJwt, {
-  secret: {
-    private: env.JWT_SECRET,
-    public: env.JWT_SECRET,
-  },
-  cookie: {
-    cookieName: 'refreshToken',
-    signed: false,
-  },
-  sign: {
-    algorithm: 'HS256',
-    expiresIn: '10m',
-  },
+app.setNotFoundHandler((_, reply) => {
+  const responseBody: ResponseError = {
+    message: 'Rota não encontrada',
+    statusCode: 404,
+  }
+  return reply.status(404).send(responseBody)
 })
 
 app.register(healthRoutes)
