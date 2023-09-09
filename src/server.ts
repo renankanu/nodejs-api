@@ -7,6 +7,7 @@ const startApplication = async () => {
     })
     console.log(`🪄 Server listening on http://localhost:3333`)
   } catch (error) {
+    console.log('🔥 Error starting application')
     app.log.error(error)
     process.exit(1)
   }

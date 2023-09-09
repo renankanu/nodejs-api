@@ -5,9 +5,9 @@ import { UserAlreadyExistsError } from '../../../shared/errors/user-already-exis
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const body = z.object({
-    name: z.string(),
+    name: z.string({ required_error: 'Nome é obrigatório' }),
     email: z.string().email(),
-    password: z.string(),
+    password: z.string({ required_error: 'Senha é obrigatória' }),
   })
 
   const { name, email, password } = body.parse(request.body)
@@ -23,7 +23,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     if (error instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })
     }
-
     throw error
   }
 

@@ -8,8 +8,10 @@ export async function authenticate(
   reply: FastifyReply,
 ) {
   const authenticateBodySchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(6),
+    email: z.string().email({ message: 'Email inválido' }),
+    password: z
+      .string()
+      .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
   })
 
   const { email, password } = authenticateBodySchema.parse(request.body)
@@ -24,7 +26,7 @@ export async function authenticate(
 
     const token = await reply.jwtSign(
       {
-        role: 'ADMIN',
+        role: user.role,
       },
       {
         sign: {
@@ -35,7 +37,7 @@ export async function authenticate(
 
     const refreshToken = await reply.jwtSign(
       {
-        role: 'ADMIN',
+        role: user.role,
       },
       {
         sign: {
