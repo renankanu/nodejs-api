@@ -4,8 +4,6 @@ import { Prisma } from '@prisma/client'
 import { userRoutes } from './interface/controllers/users/routes'
 import { healthRoutes } from './interface/controllers/health/route'
 import { ZodError } from 'zod'
-import fastifyJwt from '@fastify/jwt'
-import { env } from '@/env'
 import { ResponseError } from './shared/models/response-error'
 
 export const app = fastify({
