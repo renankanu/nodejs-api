@@ -4,14 +4,14 @@ import { Prisma } from '@prisma/client'
 import { userRoutes } from './interface/controllers/users/routes'
 import { healthRoutes } from './interface/controllers/health/route'
 import { ZodError } from 'zod'
-import { ResponseError } from './shared/models/response-error'
+import { CustomResponse } from './shared/models/response-error'
 
 export const app = fastify({
   logger: true,
 })
 
 app.setErrorHandler((error, _, reply) => {
-  const responseBody: ResponseError = {
+  const responseBody: CustomResponse = {
     message: 'Ocorreu um erro inesperado. Por favor, tente novamente.',
     statusCode: 500,
   }
@@ -32,7 +32,7 @@ app.setErrorHandler((error, _, reply) => {
 })
 
 app.setNotFoundHandler((_, reply) => {
-  const responseBody: ResponseError = {
+  const responseBody: CustomResponse = {
     message: 'Rota não encontrada',
     statusCode: 404,
   }

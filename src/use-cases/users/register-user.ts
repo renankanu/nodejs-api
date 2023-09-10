@@ -6,6 +6,7 @@ import { hash } from 'bcryptjs'
 interface RegisterUseCaseRequest {
   name: string
   email: string
+  role: 'ADMIN' | 'STUDENT' | 'TEACHER' | undefined
   password: string
 }
 
@@ -21,6 +22,7 @@ export class RegisterUserUseCase {
   async execute({
     name,
     email,
+    role,
     password,
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const passwordHash = await hash(password, 6)
@@ -31,6 +33,7 @@ export class RegisterUserUseCase {
     const user = await this.usersRepository.create({
       name,
       email,
+      role,
       password: passwordHash,
     })
 
