@@ -10,11 +10,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     email: z.string({ required_error: 'E-mail é obrigatório' }).email({
       message: 'E-mail inválido',
     }),
-    role: z.enum(['ADMIN', 'STUDENT', 'TEACHER'], {
-      errorMap: (_, ctx) => ({
-        message: `Informe o uma permissão válida(ADMIN, STUDENT, TEACHER) - informado: ${ctx.data}`,
-      }),
-    }),
+    role: z
+      .enum(['ADMIN', 'STUDENT', 'TEACHER'], {
+        errorMap: (_, ctx) => ({
+          message: `Informe o uma permissão válida(ADMIN, STUDENT, TEACHER) - informado: ${ctx.data}`,
+        }),
+      })
+      .optional(),
     password: z.string({ required_error: 'Senha é obrigatória' }),
   })
 
