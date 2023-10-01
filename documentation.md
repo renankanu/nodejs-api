@@ -46,11 +46,17 @@ Aplicativo para auxiliar na prática de exercícios físicos, com o objetivo de 
     Acesso ao aplicativo e E-mail (Somente permissão de administrador)
 <br>
 - [ ] Deletar um usuário
+
 - [ ] Login(Com e-mail e senha)
+
 - [ ] Criar treinos personalizados
+
 - [ ] Listar treinos de exemplo
+
 - [ ] Criar exercícios(Somente permissão de administrador)
+
 - [ ] Listar exercícios
+
 - [ ] Atualizar data de nascimento, peso e altura do usuário para calcular _Taxa Metabólica Basal(TMB)_ e _Índice de Massa Corporal (IMC)_
 
 ⚠️ **OBS:** Documentação em construção
