@@ -33,7 +33,8 @@ Aplicativo para auxiliar na prática de exercícios físicos, com o objetivo de 
     > - Acesso ao aplicativo
 
      ** Campos obrigatórios
-<br>
+
+
 - [ ] Atualizar um usuário
     > **Campos que podem ser atualizados:**
     > - Nome
@@ -44,7 +45,7 @@ Aplicativo para auxiliar na prática de exercícios físicos, com o objetivo de 
     > - Foto de perfil
 
     Acesso ao aplicativo e E-mail (Somente permissão de administrador)
-<br>
+
 - [ ] Deletar um usuário
 
 - [ ] Login(Com e-mail e senha)
