@@ -46,6 +46,7 @@ Aplicativo para auxiliar na prática de exercícios físicos, com o objetivo de 
     Acesso ao aplicativo e E-mail (Somente permissão de administrador)
 <br>
 - [ ] Deletar um usuário
+- [ ] Login(Com e-mail e senha)
 - [ ] Criar treinos personalizados
 - [ ] Listar treinos de exemplo
 - [ ] Criar exercícios(Somente permissão de administrador)
