@@ -1,8 +1,8 @@
 import fastify from 'fastify'
 import fastifyCookie from '@fastify/cookie'
 import { Prisma } from '@prisma/client'
-import { userRoutes } from './interface/controllers/users/routes'
-import { healthRoutes } from './interface/controllers/health/route'
+import { userRoutes } from './http/controllers/users/routes'
+import { healthRoutes } from './http/controllers/health/route'
 import { ZodError } from 'zod'
 import { CustomResponse } from './shared/models/response-error'
 
