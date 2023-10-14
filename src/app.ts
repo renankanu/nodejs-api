@@ -1,8 +1,8 @@
-import fastify from "fastify"
-import { healthRoutes } from "./http/controllers/health/route"
+import fastify from 'fastify'
+import { healthRoutes } from './http/controllers/health/route'
 
 export const app = fastify({
-    logger: true
+  logger: true,
 })
 
 app.register(healthRoutes)
