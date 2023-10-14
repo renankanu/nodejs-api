@@ -5,12 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx src/server.ts"
   },
   "keywords": [],
   "author": "Renan Santos",
   "license": "ISC",
   "dependencies": {
     "fastify": "^4.24.1"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/node": "^20.8.6",
+    "tsx": "^3.13.0"
   }
 }
