@@ -1,0 +1,28 @@
+# Dependency directories
+/node_modules
+
+# Distribution directories
+/dist
+/build
+
+# Environment configuration
+.env
+
+# Logs
+*.log
+
+# IDE-specific files
+.idea
+.vscode
+
+# macOS specific files
+.DS_Store
+
+# Cache and build artifacts
+/.npm
+/.pnp
+/.pnp.js
+.pnp.js
+/.cache
+/yarn-error.log
+.db
