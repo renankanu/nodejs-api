@@ -11,7 +11,9 @@
   "author": "Renan Santos",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.24.1"
+    "@prisma/client": "^5.4.2",
+    "fastify": "^4.24.1",
+    "prisma": "^5.4.2"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
