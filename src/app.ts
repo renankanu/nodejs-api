@@ -6,3 +6,9 @@ export const app = fastify({
 })
 
 app.register(healthRoutes)
+
+app.setErrorHandler((_, __, reply) => {
+  return reply.status(500).send({
+    message: 'Internal server error',
+  })
+})
