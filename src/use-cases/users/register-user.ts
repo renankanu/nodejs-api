@@ -4,7 +4,6 @@ import { User } from '@prisma/client'
 interface RegisterUseCaseRequest {
   name: string
   email: string
-  role: 'ADMIN' | 'STUDENT' | 'TEACHER' | undefined
   password: string
 }
 
@@ -17,10 +16,16 @@ export class RegisterUserUseCase {
     this.usersRepository = usersRepository
   }
 
-  async execute(
-    data: RegisterUseCaseRequest,
-  ): Promise<RegisterUseCaseResponse> {
-    const user = await this.usersRepository.create(data)
+  async execute({
+    name,
+    email,
+    password,
+  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password,
+    })
     return { user }
   }
 }
