@@ -24,11 +24,11 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   try {
     const registerUseCase = makeRegisterUserUseCase()
     const data = await registerUseCase.execute({ name, email, password })
-    console.log(data.user)
+    const { user } = data
     responseBody.data = {
-      name,
-      email,
-      createdAt: new Date(),
+      name: user.name,
+      email: user.email,
+      createdAt: user.createdAt,
     }
     return reply.status(201).send(responseBody)
   } catch (error) {

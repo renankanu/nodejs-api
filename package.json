@@ -16,10 +16,10 @@
   "author": "Renan Santos",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.4.2",
+    "@prisma/client": "^5.5.2",
     "bcryptjs": "^2.4.3",
     "fastify": "^4.24.1",
-    "prisma": "^5.4.2",
+    "prisma": "^5.5.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
