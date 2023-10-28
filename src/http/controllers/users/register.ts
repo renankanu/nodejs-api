@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { BaseResponse } from '@/shared/models/base-response'
 import { makeRegisterUserUseCase } from '@/use-cases/factories/make-register-user-use-case'
+import { UserAlreadyExistsError } from '@/shared/helpers/errors'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const body = z.object({
@@ -15,25 +16,28 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   const { name, email, password } = body.parse(request.body)
 
   const responseBody: BaseResponse = {
-    data: {
-      name,
-      email,
-      createdAt: new Date(),
-    },
+    data: null,
     message: 'Usuário criado com sucesso',
     statusCode: 201,
   }
 
   try {
     const registerUseCase = makeRegisterUserUseCase()
-    await registerUseCase.execute({ name, email, password })
-
+    const data = await registerUseCase.execute({ name, email, password })
+    console.log(data.user)
+    responseBody.data = {
+      name,
+      email,
+      createdAt: new Date(),
+    }
     return reply.status(201).send(responseBody)
   } catch (error) {
-    console.error(error)
-    reply.status(500).send({
-      message: 'Erro ao criar usuário',
-      statusCode: 500,
-    })
+    if (error instanceof UserAlreadyExistsError) {
+      responseBody.message = 'E-mail já cadastrado'
+      responseBody.errors = [error.message]
+      responseBody.statusCode = 409
+      return reply.status(409).send(responseBody)
+    }
+    throw error
   }
 }
