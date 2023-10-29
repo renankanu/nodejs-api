@@ -5,10 +5,11 @@ const startApplication = async () => {
     await app.listen({
       port: 3333,
     })
-    console.log(`🪄 Server listening on http://localhost:3333`)
+    app.log.info(`🪄 Server listening on http://localhost:3333`)
   } catch (error) {
-    console.log(`🔥 Error starting application`)
+    app.log.error(`🔥 Error starting application`)
     app.log.error(error)
+    // Implements datadog error logging
     process.exit(1)
   }
 }
