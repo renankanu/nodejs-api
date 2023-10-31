@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/shared/helpers/errors'
 import { BaseResponse } from '@/shared/models/base-response'
 import { makeGetUserDetailUseCase } from '@/use-cases/factories/make-get-user-detail'
 import { FastifyRequest, FastifyReply } from 'fastify'
@@ -14,27 +15,25 @@ export async function userDetail(
   })
 
   const { id } = userIdParams.parse(request.params)
-  let responseBody: BaseResponse
-  const { user } = await getDetail.execute({ id })
-
-  if (!user) {
-    responseBody = {
-      data: null,
-      message: 'Usuário não encontrado',
-      statusCode: 404,
-    }
-    return reply.status(404).send(responseBody)
+  const responseBody: BaseResponse = {
+    data: null,
+    message: '',
+    statusCode: 200,
   }
-
-  responseBody = {
-    data: {
+  try {
+    const { user } = await getDetail.execute({ id })
+    responseBody.data = {
       name: user.name,
       email: user.email,
       createdAt: user.createdAt,
-    },
-    message: 'Usuário encontrado',
-    statusCode: 200,
+    }
+    return reply.status(200).send(responseBody)
+  } catch (error) {
+    if (error instanceof ResourceNotFoundError) {
+      responseBody.message = 'Usuário não encontrado'
+      responseBody.errors = [error.message]
+      responseBody.statusCode = 404
+      return reply.status(404).send(responseBody)
+    }
   }
-
-  return reply.status(200).send(responseBody)
 }
