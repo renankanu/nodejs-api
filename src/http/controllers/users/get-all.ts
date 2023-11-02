@@ -13,7 +13,12 @@ export async function getAll(request: FastifyRequest, reply: FastifyReply) {
     const getAllUsersUseCase = makeGetAllUsersUseCase()
     const data = await getAllUsersUseCase.execute()
     const { users } = data
-    responseBody.data = users
+    const usersWithoutPassword = users.map((user) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...userWithoutPassword } = user
+      return userWithoutPassword
+    })
+    responseBody.data = usersWithoutPassword
     responseBody.message = 'Usuários encontrados'
     responseBody.statusCode = 200
     return reply.status(200).send(responseBody)
