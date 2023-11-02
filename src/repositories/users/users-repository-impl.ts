@@ -14,4 +14,8 @@ export class UsersRepositoryImpl implements UsersRepository {
   async findById(id: string): Promise<User | null> {
     return await prisma.user.findUnique({ where: { id } })
   }
+
+  async getAll(): Promise<User[]> {
+    return await prisma.user.findMany()
+  }
 }
