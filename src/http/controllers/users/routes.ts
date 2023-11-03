@@ -8,8 +8,8 @@ import { profile } from './profile'
 
 export async function userRoutes(app: FastifyInstance) {
   app.post('/user/register', register)
-  app.get('/user/:id/info', userDetail)
-  app.get('/user', getAll)
+  app.get('/user/:id/info', { onRequest: [verifyJwt] }, userDetail)
+  app.get('/user', { onRequest: [verifyJwt] }, getAll)
   app.post('/user/session', authenticate)
   app.get('/user/me', { onRequest: [verifyJwt] }, profile)
 }
