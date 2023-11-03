@@ -1,4 +1,5 @@
-import { logger } from '@/shared/helpers/logger'
+import { BaseResponse } from '@/shared/models/base-response'
+import { InvalidCredentialsError } from '@/use-cases/errors'
 import { makeAuthenticateUseCase } from '@/use-cases/factories/make-authenticate'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -19,13 +20,50 @@ export async function authenticate(
 
     const { user } = await authenticateUseCase.execute({ email, password })
 
-    const token = await reply.jwtSign({ id: user.id })
-    console.log(token)
-    logger.info(`Usuário ${user.id} autenticado com sucesso`)
+    const token = await reply.jwtSign(
+      {
+        role: 'MEMBER',
+      },
+      {
+        sign: {
+          sub: user.id,
+        },
+      },
+    )
+
+    const refreshToken = await reply.jwtSign(
+      {
+        role: 'MEMBER',
+      },
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: '7d',
+        },
+      },
+    )
+
+    return reply
+      .setCookie('refreshToken', refreshToken, {
+        path: '/',
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      })
   } catch (error) {
-    logger.error(`Erro ao autenticar usuário: ${error}`)
-    reply.status(500).send({
-      message: 'Erro ao autenticar usuário',
-    })
+    if (error instanceof InvalidCredentialsError) {
+      const responseBody: BaseResponse = {
+        data: null,
+        message: 'Credenciais inválidas',
+        errors: [error.message],
+        statusCode: 400,
+      }
+      return reply.status(400).send(responseBody)
+    }
+    throw error
   }
 }

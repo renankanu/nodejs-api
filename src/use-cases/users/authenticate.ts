@@ -2,7 +2,6 @@ import { UsersRepository } from '@/repositories/users/users-repository'
 import { User } from '@prisma/client'
 import { InvalidCredentialsError } from '../errors'
 import { compare } from 'bcryptjs'
-import { logger } from '@/shared/helpers/logger'
 
 interface AuthenticateUseCaseRequest {
   email: string
@@ -27,8 +26,6 @@ export class AuthenticateUseCase {
     if (!user) {
       throw new InvalidCredentialsError()
     }
-
-    logger.info(`Usuário ${password} autenticado com sucesso`)
 
     const samePassword = await compare(password, user.password)
 
