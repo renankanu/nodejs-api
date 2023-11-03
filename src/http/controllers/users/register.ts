@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { BaseResponse } from '@/shared/models/base-response'
 import { makeRegisterUserUseCase } from '@/use-cases/factories/make-register-user-use-case'
-import { UserAlreadyExistsError } from '@/shared/helpers/errors'
+import { UserAlreadyExistsError } from '@/use-cases/errors'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const body = z.object({

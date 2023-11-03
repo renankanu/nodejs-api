@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from '@/shared/helpers/errors'
+import { ResourceNotFoundError } from '@/use-cases/errors'
 import { BaseResponse } from '@/shared/models/base-response'
 import { makeGetUserDetailUseCase } from '@/use-cases/factories/make-get-user-detail'
 import { FastifyRequest, FastifyReply } from 'fastify'
