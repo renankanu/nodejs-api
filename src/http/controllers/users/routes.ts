@@ -5,6 +5,7 @@ import { getAll } from './get-all'
 import { authenticate } from './authenticate'
 import { verifyJwt } from '@/http/middlewares/verify-jwt'
 import { profile } from './profile'
+import { refresh } from './refresh'
 
 export async function userRoutes(app: FastifyInstance) {
   app.post('/user/register', register)
@@ -12,4 +13,5 @@ export async function userRoutes(app: FastifyInstance) {
   app.get('/user', { onRequest: [verifyJwt] }, getAll)
   app.post('/user/session', authenticate)
   app.get('/user/me', { onRequest: [verifyJwt] }, profile)
+  app.patch('/token/refresh', refresh)
 }
