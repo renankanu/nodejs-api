@@ -26,3 +26,4 @@
 /.cache
 /yarn-error.log
 .db
+.database
