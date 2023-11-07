@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -15,5 +15,5 @@ model User {
   name      String
   email     String   @unique
   password  String
-  createdAt DateTime @default(dbgenerated("NOW()")) @db.DateTime
+  createdAt DateTime @default(dbgenerated("NOW()"))
 }
