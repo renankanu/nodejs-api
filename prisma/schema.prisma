@@ -11,29 +11,17 @@ datasource db {
 }
 
 model User {
-  id          String     @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  cpf         String     @unique @db.VarChar(11)
-  phone       String     @db.VarChar(11)
-  email       String     @unique
-  role        Role       @default(USER)
+  cpf         String?  @unique @db.VarChar(11)
+  phone       String?  @db.VarChar(11)
+  email       String   @unique
+  role        Role     @default(USER)
   password    String
-  createdAt   DateTime   @default(dbgenerated("NOW()"))
-  architect   Architect? @relation(fields: [architectId], references: [id])
+  createdAt   DateTime @default(dbgenerated("NOW()"))
+  architect   User?    @relation("ArchitectClients", fields: [architectId], references: [id])
+  architects  User[]   @relation("ArchitectClients")
   architectId String?
-}
-
-model Architect {
-  id        String   @id @default(uuid())
-  name      String
-  cau       String   @unique @db.VarChar(10)
-  cpf       String   @unique @db.VarChar(11)
-  phone     String   @db.VarChar(11)
-  email     String   @unique
-  role      Role     @default(ARCHITECT)
-  password  String
-  createdAt DateTime @default(dbgenerated("NOW()"))
-  user      User[]
 }
 
 enum Role {
