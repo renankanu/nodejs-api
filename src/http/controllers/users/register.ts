@@ -29,10 +29,12 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         }
         return rest(10) === cpfDigits[9] && rest(11) === cpfDigits[10]
       }, 'Digite um cpf válido.'),
+    phone: z.string({ required_error: 'Telefone é obrigatório' }),
+    role: z.enum(['USER', 'ADMIN', 'ARCHITECT']).optional(),
     password: z.string({ required_error: 'Senha é obrigatória' }),
   })
 
-  const { name, email, password, cpf } = body.parse(request.body)
+  const { name, email, password, cpf, phone, role } = body.parse(request.body)
 
   const responseBody: BaseResponse = {
     data: null,
@@ -42,12 +44,21 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const registerUseCase = makeRegisterUserUseCase()
-    const data = await registerUseCase.execute({ name, email, password, cpf })
+    const data = await registerUseCase.execute({
+      name,
+      email,
+      password,
+      cpf,
+      phone,
+      role,
+    })
     const { user } = data
     responseBody.data = {
       name: user.name,
       email: user.email,
       cpf: user.cpf,
+      phone: user.phone,
+      role: user.role,
       createdAt: user.createdAt,
     }
     return reply.status(201).send(responseBody)
