@@ -32,7 +32,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     password: z.string({ required_error: 'Senha é obrigatória' }),
   })
 
-  const { name, email, password } = body.parse(request.body)
+  const { name, email, password, cpf } = body.parse(request.body)
 
   const responseBody: BaseResponse = {
     data: null,
@@ -42,11 +42,12 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const registerUseCase = makeRegisterUserUseCase()
-    const data = await registerUseCase.execute({ name, email, password })
+    const data = await registerUseCase.execute({ name, email, password, cpf })
     const { user } = data
     responseBody.data = {
       name: user.name,
       email: user.email,
+      cpf: user.cpf,
       createdAt: user.createdAt,
     }
     return reply.status(201).send(responseBody)

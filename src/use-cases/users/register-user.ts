@@ -7,6 +7,7 @@ interface RegisterUseCaseRequest {
   name: string
   email: string
   password: string
+  cpf: string
 }
 
 interface RegisterUseCaseResponse {
