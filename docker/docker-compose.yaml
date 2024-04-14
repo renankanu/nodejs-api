@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   database:
-    image: postgres
+    image: postgres:alpine3.19
     container_name: postgres
     restart: always
     volumes:
@@ -11,5 +11,13 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: archc_database
+      POSTGRES_USER: root
+      POSTGRES_DB: passin
       TZ: GMT+3
+  
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8081:8080
